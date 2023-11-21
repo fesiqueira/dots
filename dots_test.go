@@ -5,6 +5,14 @@ import (
 	"testing"
 )
 
+func TestLine(t *testing.T) {
+	c := NewCanvas(100, 100)
+
+	c.drawLine(1, 4, 4, 1)
+
+	fmt.Printf("%s\n", c)
+}
+
 func TestString(t *testing.T) {
 	c := NewCanvas(10, 10)
 

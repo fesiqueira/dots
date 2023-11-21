@@ -70,6 +70,22 @@ func (c *Canvas) setPixel(x, y int) {
 	c.chars[idx] |= getChar(x, y)
 }
 
+func (c *Canvas) drawLine(x1, y1, x2, y2 int) {
+	if x1 > x2 {
+		x1, x2 = x2, x1
+	}
+	if y1 > y2 {
+		y1, y2 = y2, y1
+	}
+
+	slope := float64(y2-y1) / float64(x2-x1)
+
+	for x := x1; x <= x2; x++ {
+		y := int(slope * float64(x))
+		c.setPixel(x, y)
+	}
+}
+
 func (c Canvas) rows() []string {
 	rows := make([]string, c.height)
 
