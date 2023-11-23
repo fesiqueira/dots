@@ -47,22 +47,14 @@ func (c Canvas) getIdx(x, y int) int {
 	return x/2 + y/4*c.width
 }
 
-func (c Canvas) hasPixel(x, y int) bool {
-	idx := c.getIdx(x, y)
-	return c.chars[idx]&getChar(x, y) > 0
-}
-
 func (c *Canvas) togglePixel(x, y int) {
-	if c.hasPixel(x, y) {
-		c.unsetPixel(x, y)
-		return
-	}
-	c.setPixel(x, y)
+	idx := c.getIdx(x, y)
+	c.chars[idx] ^= getChar(x, y)
 }
 
 func (c *Canvas) unsetPixel(x, y int) {
 	idx := c.getIdx(x, y)
-	c.chars[idx] ^= getChar(x, y)
+	c.chars[idx] &^= getChar(x, y)
 }
 
 func (c *Canvas) setPixel(x, y int) {
