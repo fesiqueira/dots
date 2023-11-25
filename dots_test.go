@@ -2,6 +2,7 @@ package dots
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -60,4 +61,43 @@ func TestPrintBlock(t *testing.T) {
 	c.setPixel(1, 9)
 
 	fmt.Printf("%s\n", c)
+}
+
+func TestIdempotency(t *testing.T) {
+	c := NewCanvas(1, 1)
+
+	for _, tc := range []struct {
+		name    string
+		pixelFn func(x, y int)
+		want    []rune
+	}{
+		{name: "set pixel", pixelFn: c.setPixel, want: []rune{16}},
+		{name: "unset pixel", pixelFn: c.unsetPixel, want: []rune{0}},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			tc.pixelFn(1, 1)
+			tc.pixelFn(1, 1)
+			if !reflect.DeepEqual(c.chars, tc.want) {
+				t.Errorf("want `%v` but got `%v`", tc.want, c.chars)
+			}
+		})
+	}
+}
+
+func TestTogglePixel(t *testing.T) {
+	c := NewCanvas(1, 1)
+
+	want := []rune{16}
+	c.togglePixel(1, 1)
+
+	if !reflect.DeepEqual(c.chars, want) {
+		t.Errorf("want `%v` but got `%v`", want, c.chars)
+	}
+
+	want = []rune{0}
+	c.togglePixel(1, 1)
+
+	if !reflect.DeepEqual(c.chars, want) {
+		t.Errorf("want `%v` but got `%v`", want, c.chars)
+	}
 }
