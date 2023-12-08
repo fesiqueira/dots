@@ -7,9 +7,16 @@ import (
 )
 
 func TestLine(t *testing.T) {
-	c := NewCanvas(100, 100)
+	c := NewCanvas(10, 10)
 
-	c.drawLine(1, 4, 4, 1)
+	c.drawLine(0, 0, 9, 0)
+	c.drawLine(0, 0, 0, 9)
+	c.drawLine(9, 0, 9, 9)
+	c.drawLine(0, 9, 9, 9)
+	c.drawLine(0, 0, 9, 9)
+	c.drawLine(0, 9, 9, 0)
+	c.drawLine(0, 4, 9, 4)
+	c.drawLine(4, 0, 4, 9)
 
 	fmt.Printf("%s\n", c)
 }

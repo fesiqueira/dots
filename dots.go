@@ -62,19 +62,35 @@ func (c *Canvas) setPixel(x, y int) {
 	c.chars[idx] |= getChar(x, y)
 }
 
+func abs(x int) int {
+	if x < 0 {
+		return -x
+	}
+	return x
+}
+
 func (c *Canvas) drawLine(x1, y1, x2, y2 int) {
-	if x1 > x2 {
-		x1, x2 = x2, x1
-	}
-	if y1 > y2 {
-		y1, y2 = y2, y1
+	dx := x2 - x1
+	dy := y2 - y1
+
+	step := abs(dy)
+
+	if abs(dx) >= abs(dy) {
+		step = abs(dx)
 	}
 
-	slope := float64(y2-y1) / float64(x2-x1)
+	if step == 0 {
+		return
+	}
 
-	for x := x1; x <= x2; x++ {
-		y := int(slope * float64(x))
-		c.setPixel(x, y)
+	dx = dx / step
+	dy = dy / step
+
+	for i := 0; i <= step; i++ {
+		c.setPixel(x1, y1)
+		x1 += dx
+		y1 += dy
+
 	}
 }
 
