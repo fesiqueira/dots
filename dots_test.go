@@ -9,16 +9,26 @@ import (
 func TestLine(t *testing.T) {
 	c := NewCanvas(10, 10)
 
-	c.drawLine(0, 0, 9, 0)
-	c.drawLine(0, 0, 0, 9)
-	c.drawLine(9, 0, 9, 9)
-	c.drawLine(0, 9, 9, 9)
-	c.drawLine(0, 0, 9, 9)
-	c.drawLine(0, 9, 9, 0)
-	c.drawLine(0, 4, 9, 4)
-	c.drawLine(4, 0, 4, 9)
+	c.Line(0, 0, 9, 0)
+	c.Line(0, 0, 0, 9)
+	c.Line(9, 0, 9, 9)
+	c.Line(0, 9, 9, 9)
+	c.Line(0, 0, 9, 9)
+	c.Line(0, 9, 9, 0)
+	c.Line(0, 4, 9, 4)
+	c.Line(4, 0, 4, 9)
 
 	fmt.Printf("%s\n", c)
+}
+
+func TestTriangle(t *testing.T) {
+	c := NewCanvas(150, 100)
+
+	c.Line(1, 20, 130, 80)
+	c.Line(130, 80, 30, 10)
+	c.Line(30, 10, 1, 20)
+
+	fmt.Print(c)
 }
 
 func TestString(t *testing.T) {

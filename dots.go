@@ -62,16 +62,16 @@ func (c *Canvas) setPixel(x, y int) {
 	c.chars[idx] |= getChar(x, y)
 }
 
-func abs(x int) int {
+func abs[N int | int32 | int64 | float32 | float64](x N) N {
 	if x < 0 {
 		return -x
 	}
 	return x
 }
 
-func (c *Canvas) drawLine(x1, y1, x2, y2 int) {
-	dx := x2 - x1
-	dy := y2 - y1
+func (c *Canvas) Line(x1, y1, x2, y2 int) {
+	dx := float64(x2 - x1)
+	dy := float64(y2 - y1)
 
 	step := abs(dy)
 
@@ -86,11 +86,13 @@ func (c *Canvas) drawLine(x1, y1, x2, y2 int) {
 	dx = dx / step
 	dy = dy / step
 
-	for i := 0; i <= step; i++ {
-		c.setPixel(x1, y1)
-		x1 += dx
-		y1 += dy
+	x := float64(x1)
+	y := float64(y1)
 
+	for i := .0; i <= step; i++ {
+		c.setPixel(int(math.Round(x)), int(math.Round(y)))
+		x += dx
+		y += dy
 	}
 }
 
