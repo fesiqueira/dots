@@ -9,14 +9,14 @@ import (
 func TestLine(t *testing.T) {
 	c := NewCanvas(10, 10)
 
-	c.Line(0, 0, 9, 0)
-	c.Line(0, 0, 0, 9)
-	c.Line(9, 0, 9, 9)
-	c.Line(0, 9, 9, 9)
-	c.Line(0, 0, 9, 9)
-	c.Line(0, 9, 9, 0)
-	c.Line(0, 4, 9, 4)
-	c.Line(4, 0, 4, 9)
+	c.Line(Point{0, 0}, Point{9, 0})
+	c.Line(Point{0, 0}, Point{0, 9})
+	c.Line(Point{9, 0}, Point{9, 9})
+	c.Line(Point{0, 9}, Point{9, 9})
+	c.Line(Point{0, 0}, Point{9, 9})
+	c.Line(Point{0, 9}, Point{9, 0})
+	c.Line(Point{0, 4}, Point{9, 4})
+	c.Line(Point{4, 0}, Point{4, 9})
 
 	fmt.Printf("%s\n", c)
 }
@@ -24,9 +24,8 @@ func TestLine(t *testing.T) {
 func TestTriangle(t *testing.T) {
 	c := NewCanvas(150, 100)
 
-	c.Line(1, 20, 130, 80)
-	c.Line(130, 80, 30, 10)
-	c.Line(30, 10, 1, 20)
+	c.Triangle(Point{130, 80}, Point{1, 20}, Point{30, 10})
+	c.Triangle(Point{1, 1}, Point{20, 90}, Point{100, 80})
 
 	fmt.Print(c)
 }
