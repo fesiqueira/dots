@@ -36,6 +36,9 @@ func NewCanvas(width, height int) *Canvas {
 }
 
 func getChar(x, y int) rune {
+	if x < 0 || y < 0 {
+		return '\x00'
+	}
 	return charMap[y%4][x%2]
 }
 
@@ -49,16 +52,25 @@ func (c Canvas) getIdx(x, y int) int {
 
 func (c *Canvas) togglePixel(x, y int) {
 	idx := c.getIdx(x, y)
+	if idx >= len(c.chars) {
+		return
+	}
 	c.chars[idx] ^= getChar(x, y)
 }
 
 func (c *Canvas) unsetPixel(x, y int) {
 	idx := c.getIdx(x, y)
+	if idx >= len(c.chars) {
+		return
+	}
 	c.chars[idx] &^= getChar(x, y)
 }
 
 func (c *Canvas) setPixel(x, y int) {
 	idx := c.getIdx(x, y)
+	if idx >= len(c.chars) {
+		return
+	}
 	c.chars[idx] |= getChar(x, y)
 }
 

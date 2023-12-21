@@ -30,6 +30,42 @@ func TestTriangle(t *testing.T) {
 	fmt.Print(c)
 }
 
+func TestCanvas(t *testing.T) {
+	for _, tc := range []struct {
+		name   string
+		width  int
+		height int
+		points []Point
+		want   *Canvas
+	}{
+		{
+			name:   "out of bound",
+			width:  1,
+			height: 1,
+			points: []Point{
+				{X: -1, Y: -1},
+				{X: 1, Y: 1},
+				{X: 10, Y: 10},
+			},
+			want: &Canvas{
+				chars: []rune{16},
+			},
+		},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			c := NewCanvas(tc.width, tc.height)
+
+			for _, p := range tc.points {
+				c.setPixel(p.X, p.Y)
+			}
+
+			if !reflect.DeepEqual(tc.want.chars, c.chars) {
+				t.Errorf("want %v, but got %v", tc.want.chars, c.chars)
+			}
+		})
+	}
+}
+
 func TestString(t *testing.T) {
 	c := NewCanvas(10, 10)
 
